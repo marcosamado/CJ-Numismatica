@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Layout from "../pages/Layout";
 import NotFound from "../pages/NotFound";
 import HomePage from "../pages/HomePage";
-import CoinPage from "../pages/CoinPage";
+import CoinPage, { loaderPost } from "../pages/CoinPage";
 
 export const router = createBrowserRouter([
     {
@@ -15,10 +15,12 @@ export const router = createBrowserRouter([
                     {
                         index: true,
                         element: <HomePage />,
+                        loader: loaderPost,
                     },
                     {
-                        path: "coinpage",
+                        path: "coinpage/:id",
                         element: <CoinPage />,
+                        loader: loaderPost,
                     },
                 ],
             },

@@ -1,30 +1,12 @@
-import { list } from "postcss";
 import React, { useEffect, useState } from "react";
+import { useLoaderData, useParams } from "react-router-dom";
 
 const CoinPage = () => {
-    const [data, setData] = useState();
+    const { data } = useLoaderData();
+    const { id } = useParams();
     const [pregunta1, setPregunta1] = useState(0);
 
-    async function fetchData() {
-        try {
-            let response = await fetch("src/json/monedas.json");
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
-            let data = await response.json();
-            setData(data);
-        } catch (error) {
-            console.error(
-                "There was a problem with the fetch operation:",
-                error
-            );
-        }
-    }
-
-    useEffect(() => {
-        fetchData();
-    }, []);
-
+    const { anverso, reverso } = data;
     const handleClickYes = () => {
         setPregunta1(1);
     };
@@ -41,11 +23,9 @@ const CoinPage = () => {
                 <div>
                     <h2 className="text-4xl ">Anversos</h2>
                     <ul className="text-xl mt-5 ">
-                        {/* {data?.map((element) => console.log(element.anverso.map((item) => item)))
-                )} */}
-                        {data?.map((element) =>
-                            element.anverso.map((item) => <li>{item}</li>)
-                        )}
+                        {anverso?.map((element, index) => (
+                            <li key={index}>{element}</li>
+                        ))}
                     </ul>
                 </div>
 
@@ -110,3 +90,17 @@ const CoinPage = () => {
 };
 
 export default CoinPage;
+
+export const loaderPost = async () => {
+    const res = await fetch(`json/monedas.json`);
+
+    if (!res.ok)
+        throw {
+            status: res.status,
+            statusText: "No Encontrado",
+        };
+
+    const data = await res.json();
+
+    return { data };
+};
