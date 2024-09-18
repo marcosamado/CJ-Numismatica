@@ -16,7 +16,7 @@
     {
         "id": 3,
         "nombre": "4 centavos 1954",
-        "anverso": ["A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9"],
+        "anverso": ["A1", "A2"],
         "reverso": ["R1", "R2", "R3", "R4", "R5"],
         "imgUrl": "public/images/A1.jpg"
     }
